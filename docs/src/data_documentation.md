@@ -274,10 +274,12 @@ This file contains cost and performance parameters for various generators and ot
 |Resource | This column contains **unique** names of resources available to the model. Resources can include generators, storage, and flexible or time shiftable demand.|
 |Zone | Integer representing zone number where the resource is located. |
 |**Technology type flags**|
-|New\_Build | {-1, 0, 1}, Flag for resource (storage, generation) eligibility for capacity expansion.|
-||New\_Build = 1: eligible for capacity expansion and retirement. |
-||New\_Build = 0: not eligible for capacity expansion, eligible for retirement.|
-||New\_Build = -1: not eligible for capacity expansion or retirement.|
+|New\_Build | { 0, 1}, Flag for resource (storage, generation) eligibility for capacity expansion.|
+||New\_Build = 1: eligible for capacity expansion. |
+||New\_Build = 0: not eligible for capacity expansion.|
+|Can\_Retire | {0, 1}, Flag for resource (storage, generation) eligibility for retirement.|
+||Can\_Retire = 1: eligible for retirement. |
+||Can\_Retire = 0: not eligible for retirement.|
 |THERM | {0, 1, 2}, Flag to indicate membership in set of thermal resources (e.g. nuclear, combined heat and power, natural gas combined cycle, coal power plant)|
 ||THERM = 0: Not part of set (default) |
 ||THERM = 1: If the power plant relies on thermal energy input and subject unit commitment constraints/decisions if `UCommit >= 1` (e.g. cycling decisions/costs/constraints). |
@@ -355,6 +357,7 @@ This file contains cost and performance parameters for various generators and ot
 |Min\_Retired\_Cap\_MW  |Minimum required discharge capacity retirements in the current model period. This field can be used to enforce lifetime retirements of existing capacity. Note that for co-located VRE-STOR resources, this value pertains to the grid connection (other minimum required discharge capacity retirements for different components of the resource can be found in the VRE-STOR dataframe). |
 |Min\_Retired\_Energy\_Cap\_MW  |Minimum required energy capacity retirements in the current model period. This field can be used to enforce lifetime retirements of existing energy capacity. Note that for co-located VRE-STOR resources, this value pertains to the storage component (other minimum required capacity retirements for different components of the resource can be found in the VRE-STOR dataframe).|
 |Min\_Retired\_Charge\_Cap\_MW  |Minimum required energy capacity retirements in the current model period. This field can be used to enforce lifetime retirements of existing charge capacity. |
+
 ###### Table 6: Settings-specific columns in the Generators\_data.csv file
 ---
 |**Column Name** | **Description**|
@@ -388,6 +391,11 @@ This file contains cost and performance parameters for various generators and ot
 |PWFU\_Fuel\_Usage\_Zero\_Load\_MMBTU\_per\_h|The fuel usage (MMBTU/h) for the first PWFU segemnt (y-intercept) at zero load.|
 |PWFU\_Heat\_Rate\_MMBTU\_per\_MWh\_*i| The slope of fuel usage function of the segment i.|
 |PWFU\_Load\_Point\_MW\_*i| The end of segment i (MW).|
+|**Maintenance data**|
+|MAINT|[0,1], toggles scheduled maintenance formulation.|
+|Maintenance\_Duration| (Positive integer, less than total length of simulation.) Duration of the maintenance period, in number of timesteps. Only used if `MAINT=1`.|
+|Maintenance\_Cycle\_Length\_Years| Length of scheduled maintenance cycle, in years. `1` is maintenance every year, `3` is every three years, etc. (Positive integer. Only used if `MAINT=1`.)|
+|Maintenance\_Begin\_Cadence| Cadence of timesteps in which scheduled maintenance can begin. `1` means that a maintenance period can start in any timestep, `24` means it can start only in timesteps 1, 25, 49, etc. A larger number can decrease the simulation computational cost as it limits the optimizer's choices. (Positive integer, less than total length of simulation. Only used if `MAINT=1`.)|
 |**Electrolyzer related parameters required if the set ELECTROLYZER is not empty**|
 |Hydrogen_MWh_Per_Tonne| Electrolyzer efficiency in megawatt-hours (MWh) of electricity per metric tonne of hydrogen produced (MWh/t)|
 |Electrolyzer_Min_kt| Minimum annual quantity of hydrogen that must be produced by electrolyzer in kilotonnes (kt)|
@@ -1011,3 +1019,8 @@ Reports solar PV generation in AC terms by each co-located VRE and storage resou
 #### 3.2.15 vre_stor_wind_power.csv
 
 Reports wind generation in AC terms by each co-located VRE and storage resource in each model time step.
+
+#### 3.2.16 maint_down.csv
+
+Only written if at least one plant has the scheduled maintenance formulation enabled.
+Reports the number of resource-components which are under maintenance during each model time step.
