@@ -19,6 +19,7 @@ function load_load_data!(setup::Dict, path::AbstractString, inputs::Dict)
 
 	# Number of time steps (periods)
     T = length(as_vector(:Time_Index))
+
 	# Number of demand curtailment/lost load segments
     SEG = length(as_vector(:Demand_Segment))
 
@@ -56,6 +57,7 @@ function load_load_data!(setup::Dict, path::AbstractString, inputs::Dict)
     scale_factor = setup["ParameterScale"] == 1 ? ModelScalingFactor : 1
     # Max value of non-served energy
     inputs["Voll"] = as_vector(:Voll) / scale_factor # convert from $/MWh $ million/GWh (assuming objective is divided by 1000)
+
     # Demand in MW
     inputs["pD"] =Matrix(load_in[1:T, start:start+Z-1]) / scale_factor  # convert to GW
 
