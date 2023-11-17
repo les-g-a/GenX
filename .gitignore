@@ -25,8 +25,8 @@ Highs.log
 ~$*
 
 # Never include output folders
-**/Results*/
-**/TDR_Results/
+#**/Results*/
+#**/TDR_Results/
 
 # Example systems which may be or have been under development
 Example_Systems/NYISO*
