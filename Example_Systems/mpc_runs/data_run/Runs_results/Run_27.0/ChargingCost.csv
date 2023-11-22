@@ -4,10 +4,10 @@ NE,solar_pv_2,1,1,0.0
 NE,comm_solar_pv_2,1,1,0.0
 NE,res_solar_pv_2,1,1,0.0
 NE,onshore_wind_2,1,1,0.0
-NE,battery_2,1,1,1.3517061392324758e6
+NE,battery_2,1,1,1.3517061392332762e6
 NE,fixed_offshore_wind_2,1,1,0.0
 NE,float_offshore_wind_2,1,1,0.0
 NE,natural_gas_2,1,1,0.0
 NE,nuclear_2,1,1,0.0
 NE,ror_hydro_2,1,1,0.0
-NE,pumped_hydro_2,1,1,339249.918640798
+NE,pumped_hydro_2,1,1,339249.91864276154
