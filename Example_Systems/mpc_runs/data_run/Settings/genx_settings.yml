@@ -11,7 +11,7 @@ StorageLosses: 0 # Energy Share Requirement and CO2 constraints account for ener
 MinCapReq: 0  # Activate minimum technology carveout constraints; 0 = not active; 1 = active
 Solver: Gurobi # Available solvers: Gurobi, CPLEX, Clps
 ParameterScale: 0 # Turn on parameter scaling wherein load, capacity and power variables are defined in GW rather than MW. 0 = not active; 1 = active systemwide
-WriteShadowPrices: 0 # Write shadow prices of LP or relaxed MILP; 0 = not active; 1 = active
+WriteShadowPrices: 1 # Write shadow prices of LP or relaxed MILP; 0 = not active; 1 = active
 UCommit: 2 # Unit committment of thermal power plants; 0 = not active; 1 = active using integer clestering; 2 = active using linearized clustering
 OperationWrapping: 0 # Sets temporal resolution of the model; 0 = single period to represent the full year, with first-last time step linked; 1 = multiple representative periods
 TimeDomainReductionFolder: "TDR_Results" # Directory name where results from time domain reduction will be saved. If results already exist here, these will be used without running time domain reduction script again.

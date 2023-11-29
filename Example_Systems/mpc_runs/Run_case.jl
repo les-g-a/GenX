@@ -12,18 +12,19 @@ runs_results_path = joinpath(run_path, "runs_results") # .../mpc_runs/data_run/r
 data_year_path = joinpath(mpc_runs_dir, "data_year") #.../mpc_runs/data_year
 
 
-## Set the rolling window (hrs) - currently set to 14 days (2 weeks)
-window = 24 * 14
+## Set the rolling window (hrs)
+window = 24 * 14 # currently set to 14 days (2 weeks)
 
 ## Set the maximum number of hours in the model
 max_hrs = 8760 
 
-## Set the number of hours for which we will keep the data (set to 1 week)
-keep_hrs = 24 * 7
+## Set the number of hours for which we will keep
+keep_hrs = 24 * 7 # Currently set to 1 week
 
 ## This gives you the number of runs
 run_number = max_hrs / keep_hrs
 
+# Initialize initial state of charge dictionary 
 iSoC = Dict()
 ####### This is setup for Supercloud so make sure to change your paths accordingly ########
 for i in 1:run_number
